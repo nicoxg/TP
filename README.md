@@ -19,6 +19,6 @@ Los comandos que se pueden usar en este programa son:
 - Comando DEL, si remove falla porque el archivo no existe (errno == ENOENT): no se lo considera error, retorna OK.
 
 ## Compilacion y ejecucion
-gcc TP1.c -o '<nombre>'
+gcc TP1.c -o `<nombre>`
 
-./'<nombre>'
+./`<nombre>`
