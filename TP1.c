@@ -18,7 +18,7 @@ static void descartar_resto(void) {
 
 // Parseo de comando, clave y valor. Devuelve la cantidad de campos reconocidos
 static int parse_comando(const char *linea, char *comando, char *clave, char *valor) {
-    int camposOk = sscanf(linea, "%31s %127s %127[^\n]", comando, clave, valor);
+    int camposOk = sscanf(linea, "%3s %2045s %2045s[^\n]", comando, clave, valor);
  
     // Si sscanf llego a llenar el buffer, es posible que hubo un truncamiento
     if (camposOk >= 2 && strlen(clave) == MAX_CLAVE - 1) {
@@ -54,7 +54,7 @@ static void cmd_set(const char *clave, const char *valor) {
 }
 
 static void cmd_get(const char *clave, char *valor, size_t cap_valor) {
-    FILE *f = fopen(clave, "r")
+    FILE *f = fopen(clave, "r");
     if (f == NULL) {
         // ENOENT: el archivo no existe
         // Se informa si el error es por otras causas
