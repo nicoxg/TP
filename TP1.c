@@ -18,7 +18,7 @@ static void descartar_resto(void) {
 
 // Parseo de comando, clave y valor. Devuelve la cantidad de campos reconocidos
 static int parse_comando(const char *linea, char *comando, char *clave, char *valor) {
-    int camposOk = sscanf(linea, "%3s %2045s %2045s[^\n]", comando, clave, valor);
+    int camposOk = sscanf(linea, "%3s %2045s %2045[^\n]", comando, clave, valor);
  
     // Si sscanf llego a llenar el buffer, es posible que hubo un truncamiento
     if (camposOk >= 2 && strlen(clave) == MAX_CLAVE - 1) {
