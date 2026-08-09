@@ -13,7 +13,7 @@
 #define MAX_COMANDO 4
 #define MAX_CLAVE   2047 // 2046 + 1, caso borde
 #define MAX_VALOR   2047
-#define PORT        5000    
+#define PORT        5000
 
 // Señal 1 definida por el usuario, SIGUSR1
 static volatile sig_atomic_t signal_sigusr1 = 0;
@@ -91,6 +91,7 @@ static void cmd_get(const char *clave, char *valor, size_t cap_valor, FILE *out)
         // Se informa si el error es por otras causas
         if (errno == ENOENT) {
             fprintf(out, "NOTFOUND\n");
+	    fflush(out);
         } else {
             perror("ERROR: fopen");
         }
@@ -138,7 +139,7 @@ static int crear_socket(void) {
     // Variable con la información del socket
     struct sockaddr_in direccion;
     // Se ponen en 0 todos los campos ya que algunos no se van a usar
-    memset(&direccion, 0 , sizeof(direccion));
+    memset(&direccion, 0, sizeof(direccion));
     direccion.sin_family = AF_INET; // IPv4
     direccion.sin_addr.s_addr = INADDR_ANY; // Desde cualquier interfaz
     direccion.sin_port = htons(PORT); // Garantizar formato big endian
@@ -235,7 +236,7 @@ int main(void) {
         // Null terminator
         ip_cliente[sizeof(ip_cliente) - 1] = '\0';
 
-        printf("Cliente conectado: %s\n", ip_cliente);
+        printf("cliente conectado: %s\n", ip_cliente);
         fflush(stdout);
 
         // fdopen toma el FD del socket, crea la estructura FILE
@@ -250,7 +251,7 @@ int main(void) {
         atender_cliente(cliente);
         fclose(cliente);
 
-        printf("Cliente desconectado: %s\n", ip_cliente);
+        printf("cliente desconectado: %s\n", ip_cliente);
         fflush(stdout);
     }
 }
